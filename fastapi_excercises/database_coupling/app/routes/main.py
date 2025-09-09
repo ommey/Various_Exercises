@@ -35,9 +35,9 @@ async def lifespan(app: FastAPI):
                 ])
                 await session.commit()
 
-    yield  # ----- här kör appen -----
+    yield  
 
-    # --- SHUTDOWN ---
+    
     await engine.dispose()
 
 api = FastAPI(lifespan=lifespan)
@@ -50,8 +50,6 @@ async def read_todo(todo_id: int, session: AsyncSession = Depends(get_session)):
         raise HTTPException(status_code=404, detail=f"Error, no entry matched the id {todo_id}")
     return todo
       
-
-
 @api.get("/todos", response_model=List[TodoSchema])
 async def read_todos(first_n: Optional[int] = None, session: AsyncSession = Depends(get_session)):
     stmt = select(TodoModel).order_by(TodoModel.todo_id.asc())
