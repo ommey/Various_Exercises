@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Chatbot</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev@8.6.4/external-library.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <script type="text/babel">
+      // Create a simple chat input component
+      // function returns html elements
+      function ChatInput({ chatMessages, setChatMessages }) {
+        const [inputText, setInputText] = React.useState("");
+
+        function saveInputText(event) {
+          setInputText(event.target.value);
+        }
+
+        function sendMessage(event) {
+          console.log(inputText);
+
+          const newChatMessages = [
+            ...chatMessages,
+            {
+              text: inputText,
+              sender: "user",
+              id: crypto.randomUUID(),
+            },
+          ];
+          setChatMessages(newChatMessages);
+
+          const response = Chatbot.getResponse(inputText);
+
+          setChatMessages([
+            ...newChatMessages,
+            {
+              text: Chatbot.getResponse(inputText),
+              sender: "robot",
+              id: crypto.randomUUID(),
+            },
+          ]);
+          setInputText("");
+        }
+
+        return (
+          // can only return one element thherefore wrap in div
+          <>
+            <input
+              placeholder="Write a message!"
+              size="32"
+              onChange={saveInputText}
+              value={inputText}
+            />
+            <button onClick={sendMessage}>Send</button>
+          </>
+        );
+      }
+
+      const div_const = (
+        // as long as function returns html elements {ChatInput()}
+        // <ChatInput></ChatInput> is the component syntax for the same thing
+        <div>
+          {ChatInput}
+          <ChatInput></ChatInput>
+          <ChatInput />
+        </div>
+      );
+
+      // fragment does not add an extra div to the DOM
+      // just a grouping wrapper for multiple elements
+      const fragment_const = (
+        <>
+          {ChatInput}
+          <ChatInput></ChatInput>
+          <ChatInput />
+        </>
+      );
+
+      function ChatMessage({ message, sender }) {
+        //  const message = props.message;
+        //  const sender = props.sender;
+        // can be destructured in func, or parameter
+        //  const {message, sender} = props;
+        //console.log(props);
+
+        /* if (sender === 'robot')
+        {
+          return (
+           <div >
+            <img src={sender + ".png"} width="50" />
+            {message}
+          </div>
+          )
+        }*/
+        return (
+          <div>
+            {sender === "robot" && <img src={"robot.png"} width="50" />}
+            {message}
+            {sender === "user" && <img src={"user.png"} width="50" />}
+          </div>
+        );
+      }
+
+      function ChatMessages({ chatMessages, setChatMessages }) {
+        return (
+          <>
+            {chatMessages.map((message) => {
+              return (
+                <ChatMessage
+                  message={message.text}
+                  sender={message.sender}
+                  key={message.id}
+                />
+              );
+            })}
+          </>
+        );
+      }
+
+      function App() {
+        const [chatMessages, setChatMessages] = React.useState([
+          {
+            text: "hello chatbot",
+            sender: "user",
+            id: "1",
+          },
+          {
+            text: "hello there!",
+            sender: "robot",
+            id: "2",
+          },
+          {
+            text: "what day is it!",
+            sender: "user",
+            id: "3",
+          },
+          {
+            text: "im hardcoded bro, idk!",
+            sender: "robot",
+            id: "4",
+          },
+        ]);
+
+        //const chatMessages = array[0];
+        //const setChatMessages = array[1];
+        //const [chatMessages, setChatMessages] =array;
+        return (
+          <>
+            <ChatInput
+              chatMessages={chatMessages}
+              setChatMessages={setChatMessages}
+            />
+            <ChatMessages
+              chatMessages={chatMessages}
+              setChatMessages={setChatMessages}
+            />
+          </>
+        );
+      }
+
+      const container = document.querySelector(".js-container");
+      // Render the ChatInput component into the container
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>
