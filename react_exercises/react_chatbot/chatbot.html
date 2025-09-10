@@ -2,6 +2,80 @@
 <html>
   <head>
     <title>React Chatbot</title>
+    <style>
+      body {
+        font-family: Arial;
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
+      .send-button {
+        background-color: rgb(25, 135, 84);
+        color: white;
+        padding: 12px 20px;
+        margin-left: 10px;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        cursor: pointer;
+      }
+
+      .chat-input {
+        padding: 12px 20px;
+        border-radius: 10px;
+        font-size: 15px;
+
+        flex-grow: 1;
+      }
+
+      .chat-input-container {
+        display: flex;
+        margin-bottom: 60px;
+      }
+
+      .app-container {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        
+      }
+
+      .chat-message-user {
+        display: flex;
+        justify-content: end;
+        align-items: start;
+      }
+
+      .chat-message-robot {
+        display: flex;
+        align-items: start;
+      }
+
+      .chat-message-text {
+        background-color: rgb(238, 238, 238);
+        padding: 15px 20px;
+        border-radius: 10px;
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-bottom: 20px;
+        max-width: 300px;
+      }
+
+      .profile-picture {
+        width: 45px;
+      }
+
+      .chat-messages-container {
+        flex-grow: 1;
+        margin-top: 20px;
+        overflow: scroll;
+        scrollbar-width: 2px;
+        
+      }
+    </style>
   </head>
   <body>
     <div class="js-container"></div>
@@ -52,37 +126,20 @@
 
         return (
           // can only return one element thherefore wrap in div
-          <>
+          <div className="chat-input-container">
             <input
               placeholder="Write a message!"
               size="32"
               onChange={saveInputText}
               value={inputText}
+              className="chat-input"
             />
-            <button onClick={sendMessage}>Send</button>
-          </>
+            <button onClick={sendMessage} className="send-button">
+              Send
+            </button>
+          </div>
         );
       }
-
-      const div_const = (
-        // as long as function returns html elements {ChatInput()}
-        // <ChatInput></ChatInput> is the component syntax for the same thing
-        <div>
-          {ChatInput}
-          <ChatInput></ChatInput>
-          <ChatInput />
-        </div>
-      );
-
-      // fragment does not add an extra div to the DOM
-      // just a grouping wrapper for multiple elements
-      const fragment_const = (
-        <>
-          {ChatInput}
-          <ChatInput></ChatInput>
-          <ChatInput />
-        </>
-      );
 
       function ChatMessage({ message, sender }) {
         //  const message = props.message;
@@ -101,68 +158,68 @@
           )
         }*/
         return (
-          <div>
-            {sender === "robot" && <img src={"robot.png"} width="50" />}
-            {message}
-            {sender === "user" && <img src={"user.png"} width="50" />}
+          <div
+            className={
+              sender === "user" ? "chat-message-user" : "chat-message-robot"
+            }
+          >
+            {sender === "robot" && (
+              <img src="robot.png" className="profile-picture" />
+            )}
+            <div className="chat-message-text">{message}</div>
+            {sender === "user" && (
+              <img src="user.png" className="profile-picture" />
+            )}
           </div>
         );
       }
 
       function ChatMessages({ chatMessages, setChatMessages }) {
+        const chatMessagesRef = React.useRef(null);
+        React.useEffect(() => 
+        {
+          const containerElement = chatMessagesRef.current
+          if (containerElement)
+          {
+            containerElement.scrollTop = containerElement.scrollHeight;
+          }
+        }, [chatMessages]);
         return (
-          <>
-            {chatMessages.map((message) => {
-              return (
-                <ChatMessage
-                  message={message.text}
-                  sender={message.sender}
-                  key={message.id}
-                />
-              );
-            })}
-          </>
+          <div 
+            className="chat-messages-container"
+            ref={chatMessagesRef}>
+              {chatMessages.map((message) => {
+                return (
+                  <ChatMessage
+                    message={message.text}
+                    sender={message.sender}
+                    key={message.id}
+                  />
+                );
+              })}
+          </div>
         );
       }
 
       function App() {
         const [chatMessages, setChatMessages] = React.useState([
-          {
-            text: "hello chatbot",
-            sender: "user",
-            id: "1",
-          },
-          {
-            text: "hello there!",
-            sender: "robot",
-            id: "2",
-          },
-          {
-            text: "what day is it!",
-            sender: "user",
-            id: "3",
-          },
-          {
-            text: "im hardcoded bro, idk!",
-            sender: "robot",
-            id: "4",
-          },
+          
         ]);
 
         //const chatMessages = array[0];
         //const setChatMessages = array[1];
         //const [chatMessages, setChatMessages] =array;
         return (
-          <>
-            <ChatInput
-              chatMessages={chatMessages}
-              setChatMessages={setChatMessages}
-            />
+          <div className="app-container">
             <ChatMessages
               chatMessages={chatMessages}
               setChatMessages={setChatMessages}
             />
-          </>
+            <ChatInput
+              chatMessages={chatMessages}
+              setChatMessages={setChatMessages}
+            />
+          </div>
         );
       }
 
