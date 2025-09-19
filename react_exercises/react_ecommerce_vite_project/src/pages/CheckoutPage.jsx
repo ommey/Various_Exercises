@@ -1,8 +1,20 @@
 import './checkout-header.css'
 import './CheckoutPage.css'
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import { formatMoney } from '../utils/money'
 
 export function CheckoutPage({ cart }) {
+
+    const [deliveryOptions, setDeliveryOptions] = useState();
+
+    useEffect(() => {
+        axios.get('/api/delivery-options?expand-estimatedDeliveryTime')
+            .then((response) => {
+                setDeliveryOptions(response.data)
+            });
+    }, []);
+
     return (
         <>
 
@@ -47,8 +59,8 @@ export function CheckoutPage({ cart }) {
                                         <div className="product-name">
                                             {cartItem.product.name}                                        </div>
                                         <div className="product-price">
-                                            {formatMoney(cartItem.product.priceCents)}                 
-                                            </div>
+                                            {formatMoney(cartItem.product.priceCents)}
+                                        </div>
                                         <div className="product-quantity">
                                             <span>
                                                 Quantity: <span className="quantity-label">{cartItem.quantity}</span>
@@ -66,6 +78,21 @@ export function CheckoutPage({ cart }) {
                                         <div className="delivery-options-title">
                                             Choose a delivery option:
                                         </div>
+                                        {deliveryOptions.map((deliveryOption) => {
+                                            <div className="delivery-option">
+                                            <input type="radio" checked
+                                                className="delivery-option-input"
+                                                name={`delivery-option-${cartItem.productId}`} />
+                                            <div>
+                                                <div className="delivery-option-date">
+                                                    Tuesday, June 21
+                                                </div>
+                                                <div className="delivery-option-price">
+                                                    FREE Shipping
+                                                </div>
+                                            </div>
+                                        </div>
+                                        })}
                                         <div className="delivery-option">
                                             <input type="radio" checked
                                                 className="delivery-option-input"
