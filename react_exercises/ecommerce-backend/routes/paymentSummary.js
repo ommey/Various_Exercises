@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     const deliveryOption = await DeliveryOption.findByPk(item.deliveryOptionId);
     totalItems += item.quantity;
     productCostCents += product.priceCents * item.quantity;
-    shippingCostCents += deliveryOption.priceCents;
+    shippingCostCents += deliveryOption.priceCents;  
   }
 
   const totalCostBeforeTaxCents = productCostCents + shippingCostCents;
