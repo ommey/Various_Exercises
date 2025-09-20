@@ -28,7 +28,7 @@ export function HomePage({ cart, loadCart }) {
 
       <div className="home-page">
         <div className="home-page">
-          <ProductsGrid products={products} loadCart={loadCart} />
+          <ProductsGrid products={products} loadCart={loadCart} cart={cart} />
         </div>
       </div>
     </>

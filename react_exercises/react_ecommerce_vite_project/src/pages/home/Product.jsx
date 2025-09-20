@@ -2,8 +2,12 @@ import { useState } from "react";
 import { formatMoney } from "../../utils/money";
 import axios from "axios";
 
-export function Product({ product, loadCart }) {
+export function Product({ product, loadCart, cart }) {
   const [quantity, setQuantity] = useState(1);
+
+  const productCartQuantity = Number(
+    (cart ?? []).find((i) => i.productId === product.id)?.quantity ?? 0
+  );
 
   const addToCart = async () => {
     await axios.post("/api/cart-items", {
@@ -11,12 +15,22 @@ export function Product({ product, loadCart }) {
       quantity,
     });
     await loadCart();
+    console.log(product.name, productCartQuantity);
   };
 
   const changeQuantity = (event) => {
     const selectedQuantity = Number(event.target.value);
     setQuantity(selectedQuantity);
   };
+
+  const removeFromCart = async () => {
+    await axios.put(`/api/cart-items/${product.id}`, {
+      quantity: productCartQuantity - quantity,
+    });
+    await loadCart();
+    console.log(product.name, productCartQuantity);
+  };
+
 
   return (
     <div key={product.id} className="product-container">
@@ -53,6 +67,8 @@ export function Product({ product, loadCart }) {
         </select>
       </div>
 
+      {productCartQuantity > 0 && <>Quantity in cart: {productCartQuantity}</>}
+
       <div className="product-spacer"></div>
 
       <div className="added-to-cart">
@@ -62,6 +78,12 @@ export function Product({ product, loadCart }) {
 
       <button className="add-to-cart-button button-primary" onClick={addToCart}>
         Add to Cart
+      </button>
+      <button
+        className="add-to-cart-button button-regret"
+        onClick={removeFromCart}
+      >
+        Delete from cart
       </button>
     </div>
   );

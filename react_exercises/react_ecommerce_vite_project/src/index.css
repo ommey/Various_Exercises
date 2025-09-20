@@ -44,6 +44,26 @@ input, select, button {
   box-shadow: none;
 }
 
+.button-regret {
+  color: rgb(255, 255, 255);
+  background-color: rgb(116, 14, 14);
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(220, 220, 220, 0.5);
+}
+
+.button-regret:hover {
+  background-color: rgba(32, 2, 2, 0.75);
+  border: 1px solid transparent;
+}
+
+.button-regret:active {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: transparent;
+  box-shadow: none;
+}
+
 .button-secondary {
   color: rgb(33, 33, 33);
   background: white;
