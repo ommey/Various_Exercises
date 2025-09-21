@@ -6,7 +6,7 @@ services:
     container_name: todo-backend
     ports:
       - "8000:8000"
-    enviroment:
+    environment:
       - DATABASE_URL=sqlite:///./todo.db
       - CORS_ORIGINS=http://localhost:5173,http://localhost
     volumes:
@@ -16,7 +16,8 @@ services:
     build: ./frontend
     container_name: todo-frontend
     command: [ "sh", "-c", "npm ci && npm run build && cp -r dist/* /dist-out/" ]
-    volumes: -frontend_dist:/dist-out
+    volumes: 
+      - frontend_dist:/dist-out
 
   nginx:
     image: nginx:1.27-alpine

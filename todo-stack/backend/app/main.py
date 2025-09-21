@@ -32,13 +32,13 @@ def health():
 
 
 # CRUD
-@app.get("/api/tasks", response_model=list[TaskRead])
+@app.get("/api/todo-list", response_model=list[TaskRead])
 def list_tasks(session: Session = Depends(get_session)):
     tasks = session.exec(select(Task).order_by(Task.created_at.desc())).all()
     return tasks
 
 
-@app.post("/api/tasks", response_model=TaskRead, status_code=201)
+@app.post("/api/todo-list", response_model=TaskRead, status_code=201)
 def create_task(payload: TaskCreate, session: Session = Depends(get_session)):
     task = Task(**payload.dict())
     session.add(task)
@@ -47,7 +47,7 @@ def create_task(payload: TaskCreate, session: Session = Depends(get_session)):
     return task
 
 
-@app.get("/api/tasks/{task_id}", response_model=TaskRead)
+@app.get("/api/todo-list/{task_id}", response_model=TaskRead)
 def get_task(task_id: int, session: Session = Depends(get_session)):
     task = session.get(Task, task_id)
     if not task:
@@ -55,7 +55,7 @@ def get_task(task_id: int, session: Session = Depends(get_session)):
         return task
 
 
-@app.put("/api/tasks/{task_id}", response_model=TaskRead)
+@app.put("/api/todo-list/{task_id}", response_model=TaskRead)
 def update_task(task_id: int, payload: TaskUpdate, session: Session = Depends(get_session)):
     task = session.get(Task, task_id)
     if not task:
