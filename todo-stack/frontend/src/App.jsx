@@ -1,14 +1,14 @@
 import { Routes, Route } from "react-router";
 import './App.css'
-import TodoLandingPage from './pages/TodoLandingPage.jsx'
-import { HomePage } from "./pages/HomePage.jsx";
+import { TodoPage } from './pages/TodoPage.jsx'
+import { LandingPage } from "./pages/LandingPage.jsx";
 
 export function App() {
   
   return (
     <Routes>
-      <Route index element={<HomePage />}/>
-      <Route path="todos" element={<TodoLandingPage />}/>
+     <Route path="/" element={<LandingPage />} />
+     <Route path="/todos" element={<TodoPage />} />
     </Routes>
   )
 }
