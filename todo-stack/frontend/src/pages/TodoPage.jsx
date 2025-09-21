@@ -23,7 +23,7 @@ export function TodoPage() {
 
   useEffect(() => {
     const getTodoList = async () => {
-      const request = await axios.get('/api/todo-list');
+      const request = await axios.get('/api/todos');
       setToDoList(request.length);
     };
     getTodoList();

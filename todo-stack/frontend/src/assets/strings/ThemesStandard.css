@@ -1,0 +1,58 @@
+/* Base (light) theme */
+:root {
+  color-scheme: light;
+  /* Palette (HSL is easy to tweak) */
+  --brand-hue: 245;
+  --brand-saturation: 75%;
+  --brand-brightness: 52%;
+  --accent-hue: 12;
+  --accent-saturation: 85%;
+  --accent-brightness: 55%;
+
+  /* Semantic tokens (use these everywhere) */
+  --background-1: #ffffff;
+  --background-2: #f6f7fb;
+  --text-1: #121417;
+  --text-2: #495061;
+  --disabled: #e7e9f1;
+
+  --brand: hsl(
+    var(--brand-hue) var(--brand-saturation) var(--brand-brightness)
+  );
+  --brand-600: hsl(
+    var(--brand-hue) var(--brand-saturation) calc(var(--brand-brightness) - 8%)
+  );
+  --brand-700: hsl(
+    var(--brand-hue) var(--brand-saturation) calc(var(--brand-brightness) - 16%)
+  );
+  --accent: hsl(
+    var(--accent-hue) var(--accent-saturation) var(--accent-brightness)
+  );
+
+  /* Shared design tokens */
+  --radius: 12px;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-2: 0 6px 20px rgba(0, 0, 0, 0.1);
+  --gap: 1rem;
+
+  /* Component-ish tokens */
+  --card-background: var(--background-1);
+  --card-border: 1px solid rgba(0, 0, 0, 0.08);
+  --link: var(--brand);
+  --link-hover: var(--brand-700);
+}
+
+/* Dark theme override */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background-1: #0f1115;
+  --background-2: #161922;
+  --text-1: #f2f4f8;
+  --text-2: #c3c8d4;
+  --disabled: #2a2f3a;
+
+  /* brand can stay the same or be tuned a bit darker */
+  --brand-brightness: 62%;
+  --card-background: var(--background-2);
+  --card-border: 1px solid rgba(255, 255, 255, 0.08);
+}

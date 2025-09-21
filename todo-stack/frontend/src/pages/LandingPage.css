@@ -1,0 +1,23 @@
+
+.landing-page-background{
+    background-color: --background-1;
+    padding: 30px;
+
+}
+
+.first{
+    background-color: --background-2;
+
+}
+
+.second{
+    background-color: --background-2;
+}
+
+.third{
+    background-color: --background-2;
+}
+
+.fourth{
+    background-color: --background-2;
+}
