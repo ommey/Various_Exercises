@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    container_name: todo-backend
+    ports:
+      - "8000:8000"
+    enviroment:
+      - DATABASE_URL=sqlite:///./todo.db
+      - CORS_ORIGINS=http://localhost:5173,http://localhost
+    volumes:
+      - backend_data:/app
+
+  frontend:
+    build: ./frontend
+    container_name: todo-frontend
+    command: [ "sh", "-c", "npm ci && npm run build && cp -r dist/* /dist-out/" ]
+    volumes: -frontend_dist:/dist-out
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: todo-nginx
+    depends_on:
+      - backend
+      - frontend
+    ports:
+      - "80:80"
+    volumes:
+      - frontend_dist:/usr/share/nginx/html:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+
+volumes:
+  backend_data:
+  frontend_dist:

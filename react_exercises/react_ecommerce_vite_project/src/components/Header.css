@@ -1,4 +1,5 @@
 .header {
+  position: sticky;
   background-color: rgb(8, 79, 45);
   color: white;
   padding-left: 15px;
@@ -8,11 +9,42 @@
   align-items: center;
   justify-content: space-between;
 
-  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   height: 60px;
+  z-index: 1000;
+  overflow: visible;
+}
+
+.basket-menu {
+  position: absolute;
+  top: 64px;
+  max-width: 250px;
+  /* a bit below 60px header */
+  right: 6px;
+  width: 100%;
+  max-height: fit-content;
+
+  background: #9aad8f;
+  color: #111827;
+  border: 5px solid #000000; /* gray-200 */
+  border-radius: 10px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  z-index: 1100;
+}
+button.cart-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+button.cart-link:focus-visible {
+  outline: 2px dashed #000000;
+  outline-offset: 2px;
+}
+
+.header .basket-menu.show {
+  opacity: 1;
 }
 
 .header .left-section {
@@ -119,7 +151,13 @@
 }
 
 .header .cart-link {
-  color: white;
+  appearance: none;
+  background: transparent;
+  border: 0;
+
+  display: inline-flex;
+  align-items: center;
+  color: black;
   display: flex;
   align-items: center;
   position: relative;
