@@ -1,0 +1,9 @@
+@import "../styles/Colors.css";
+
+.header {
+  flex: 0 0 var(--header-h); /* shorthand for grow:0; shrink:0; basis: var(--header-h) */
+  background: var(--color-foreground);
+  border-bottom: 1px solid var(--color-accent);
+  display: flex; align-items: center;
+  padding: 0 1rem;
+}

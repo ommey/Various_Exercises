@@ -1,23 +1,16 @@
+@import "../styles/Colors.css"; /* your tokens */
 
-.landing-page-background{
-    background-color: --background-1;
-    padding: 30px;
-
+:root {
+  --header-h: 10vh;
+  --footer-h: 5vh;
 }
 
-.first{
-    background-color: --background-2;
+html, body { height: 100%; margin: 0; overflow: hidden;}
 
-}
-
-.second{
-    background-color: --background-2;
-}
-
-.third{
-    background-color: --background-2;
-}
-
-.fourth{
-    background-color: --background-2;
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-background);
+  color: var(--color-text);
 }

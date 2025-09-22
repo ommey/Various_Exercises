@@ -1,0 +1,9 @@
+:root{
+  --color-background:  hsl(215, 34%, 60%);
+  --color-text:  hsl(214, 32%, 14%);
+  --color-foreground: hsl(214, 14%, 85%);
+  --color-accent:  hsl(215, 96%, 51%);
+  --color-disuade: hsla(0, 84%, 30%, 0.603);
+  --color-persuade: hsla(124, 84%, 30%, 0.705);
+
+}

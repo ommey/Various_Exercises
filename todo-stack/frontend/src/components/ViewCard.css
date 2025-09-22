@@ -1,0 +1,11 @@
+@import '../styles/Colors.css';
+
+
+.view-card {
+  min-height: 250px;
+  background: var(--color-foreground);
+  color: var(--color-text);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 10px var(--color-accent);
+}

@@ -1,0 +1,16 @@
+@import "../styles/Colors.css";
+
+.main-view {
+  flex: 1 1 auto;            /* take the remaining space */
+  min-height: 0;             /* required so overflow works in Firefox */
+  overflow: auto;            /* scroll here */
+  padding: 1rem;
+}
+
+/* responsive grid for cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+  gap: 1.5rem;
+  align-content: start;
+}

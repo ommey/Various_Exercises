@@ -1,20 +1,17 @@
-import { ThemeToggleButton } from '../ThemeHandler';
-import './LandingPage.css'
+import "./LandingPage.css";
+import { Header } from "../components/Header.jsx";
+import { MainView } from "../components/MainView.jsx";
+import { Footer } from "../components/Footer.jsx";
+import { ViewCard } from "../components/ViewCard.jsx";
 
-
-export function LandingPage(themeToggler={ThemeToggleButton}) {
-
-    return (
-        <div className="landing-page-background">
-            <title>LandingPage</title>
-            
-                <div className="first"></div>
-                <div className="second"></div>
-                <div className="fourth"></div>
-                <div className="fifth"></div>
-                <ThemeToggleButton />
-            
-            LandingPage, overview and starting location
-        </div>
-    );
+export function LandingPage() {
+  return (
+    <div className="app">
+      <Header />
+      <MainView>
+        <ViewCard /><ViewCard /><ViewCard /><ViewCard /><ViewCard />
+      </MainView>
+      <Footer />
+    </div>
+  );
 }

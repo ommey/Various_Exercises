@@ -1,7 +1,6 @@
-import './assets/strings/ThemesStandard.css';
 
 
-export function setTheme(name) {
+/*export function setTheme(name) {
   document.documentElement.setAttribute('data-theme', name);
   localStorage.setItem('theme', name);
 }
@@ -22,3 +21,4 @@ export function ThemeToggleButton() {
     </button>
   );
 }
+*/

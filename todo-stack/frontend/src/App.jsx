@@ -2,16 +2,13 @@ import { Routes, Route } from "react-router";
 import './App.css'
 import { TodoPage } from './pages/TodoPage.jsx'
 import { LandingPage } from "./pages/LandingPage.jsx";
-import { initTheme, setTheme, ThemeToggleButton } from "./ThemeHandler.jsx";
 
-setTheme('light');
-initTheme();
 
-export function App(themeToggler={ThemeToggleButton}) {
+export function App() {
   
   return (
     <Routes>
-     <Route path="/" element={<LandingPage themeToggler={ThemeToggleButton} />} />
+     <Route path="/" element={<LandingPage />} />
      <Route path="/todos" element={<TodoPage />} />
     </Routes>
   )
